@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>上传</title>
+    <script type="text/javascript" src="lib/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="lib/FileAPI.min.js"></script>
+    <script type="text/javascript" src="lib/ng-file-upload-all.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="index">
+<div class="button" ngf-select="upload($file)">Attachment</div>
+<script type="text/javascript">
+   var app=angular.module('app', ['ngFileUpload']);
+   app.controller('index', function ($scope, $http, $stateParams, Upload) {
+        var files;
+        $scope.upload = function (file) {
+            files = file;
+            console.log(file);
+        };
+        $scope.FileUploads = function() {
+            Upload.upload({
+                url: '/File/Upload',
+                data: { file: files }
+            }).then(function(resp) {
+                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+            }, function(resp) {
+                console.log('Error status: ' + resp.status);
+            }, function(evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            });
+        };
+
+    });
+</script>
+</body>
+</html>
