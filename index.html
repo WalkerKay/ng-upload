@@ -9,7 +9,7 @@
     <script type="text/javascript" src="lib/ng-file-upload-all.min.js"></script>
 </head>
 <body ng-app="app" ng-controller="index">
-<div class="button" ngf-select="upload($file)">Attachment</div>
+<div class="button" ngf-select="upload($file)">文件选择</div>
 <script type="text/javascript">
    var app=angular.module('app', ['ngFileUpload']);
    app.controller('index', function ($scope, $http, $stateParams, Upload) {
